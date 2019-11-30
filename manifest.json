@@ -1,13 +1,18 @@
 {
 	"name": "SWEM Sentiment Analyzer",
 	"version": "1.0",
-	"description": "Course final project from CSE 256 Statisical NLP at UCSD",
-	"permissions": ["activeTab", "declarativeContent", "storage"],
+	"description": "Course Project of CSE 256 Statisical NLP at UCSD",
+	"permissions": [
+		"contextMenus",
+		"activeTab",
+		"declarativeContent",
+		"storage"
+	],
 	"background": {
 		"scripts": ["background.js"],
 		"persistent": false
 	},
-   "page_action": {
+	"browser_action": {
 		"default_popup": "popup.html",
 		"default_icon": {
 			"16": "images/get_started16.png",

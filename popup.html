@@ -1,17 +1,47 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <style>
-            button {
-                height: 30px;
-                width: 30px;
-                outline: none;
+    <head>        
+        <title> Sentiment Analyzer </title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <style type="text/css">
+            body {
+              min-width: 600px; /* your desired width */
+              max-width: 100%;
+              min-height: 300px; /* your desired width */
+              max-height: 100%;
+              position: relative;
+              vertical-align:middle;
             }
         </style>
+        <script src="jquery-3.1.0.min"> </script>
     </head>
 
     <body>
-        <button id="changeColor"></button>
-        <script src="popup.js"></script>
+        <div class="container mt-3 mb-3">
+            <div class="container text-center mt-1 mb-1">
+                <h3> Sentiment Analyzer </h3>
+                By CSE 256 Group ?
+                <a href="https://github.com/WagJK/cse-256-project"> 
+                    Github link
+                </a>
+            </div>
+            
+            <div class="container text-left">
+                <div class="card">
+                    <h5 class="card-header"> Selected Text </h5>
+                    <div class="card-body">
+                        <p class="card-text"> 
+                            <span id="text"> You haven't selected your text </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script src="lib/jquery-3.4.1.min.js"> </script>
+        <script src="lib/popper.min.js"> </script>
+        <script src="lib/bootstrap.min.js"> </script>
+
+        <script src="popup.js"> </script>
     </body>
 </html>
