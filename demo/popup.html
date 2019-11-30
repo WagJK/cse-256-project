@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <style type="text/css">
             body {
-              min-width: 600px; /* your desired width */
+              min-width: 500px; /* your desired width */
               max-width: 100%;
               min-height: 300px; /* your desired width */
               max-height: 100%;
@@ -17,24 +17,53 @@
     </head>
 
     <body>
-        <div class="container mt-3 mb-3">
-            <div class="container text-center mt-1 mb-1">
+        <div class="container pt-3 pb-3 ml-0 mr-0 bg-dark text-white">
+            <div class="container text-center">
                 <h3> Sentiment Analyzer </h3>
-                By CSE 256 Group ?
+                By CSE 256 Group 9 - 
                 <a href="https://github.com/WagJK/cse-256-project"> 
                     Github link
                 </a>
             </div>
-            
-            <div class="container text-left">
+        </div>
+        <div class="container pt-0 pb-3 ml-0 mr-0 bg-light">  
+            <div class="container text-left mt-3">
+                <h5> Selected Text </h5>
+                <textarea id="text" type="text" class="form-control" id="text" placeholder="You haven't selected your text" rows="5">
+                </textarea>
+                <button type="button" class="btn btn-success btn-block mt-2"> Analyze </button>
+            </div>
+            <!-- <div class="container text-left">
                 <div class="card">
                     <h5 class="card-header"> Selected Text </h5>
                     <div class="card-body">
                         <p class="card-text"> 
                             <span id="text"> You haven't selected your text </span>
                         </p>
+                        <button type="button" class="btn btn-success btn-lg"> Evaluate </button>
                     </div>
                 </div>
+            </div> -->
+
+            <div class="container text-left mt-3 mb-3 ml-3 mr-3">
+                <h4> Your text sounds: 
+                    <span id="sentiment" class="badge badge-danger">
+                        Absolute abomination
+                    </span>
+                </h4>
+                <h6> Sentiment score: 
+                    <span id="sentiment-score">
+                        <b> -99999 </b>
+                    </span>
+                </h6>
+            </div>
+            <hr>
+            <div class="container text-left mt-1 mb-1 ml-3 mr-3">
+                <h6>
+                    Are we right? &nbsp&nbsp&nbsp 
+                    <button type="button" class="btn btn-success btn-sm"> Yes </button>
+                    <button type="button" class="btn btn-danger btn-sm"> No </button>
+                </h6>
             </div>
         </div>
         
