@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 from torchtext import data
 from torchtext import datasets
-from model import SWEM_avg, SWEM_max, SWEM_hier
+from model import SWEM_avg, SWEM_max, SWEM_hier, RNN
 import json
 import os
 from torchtext import datasets
@@ -85,8 +85,13 @@ train_iterator, valid_iterator, test_iterator = data.BucketIterator.splits(
     device = device)
 
 INPUT_DIM = len(TEXT.vocab)
+HIDDEN_DIM = 256
+OUTPUT_DIM = 1
+N_LAYERS = 2
+BIDIRECTIONAL = True
+DROPOUT = 0.5
 PAD_IDX = TEXT.vocab.stoi[TEXT.pad_token]
-model = SWEM_hier(INPUT_DIM, EMBEDDING_DIM, PAD_IDX)
+model = RNN(INPUT_DIM, EMBEDDING_DIM, HIDDEN_DIM, OUTPUT_DIM, N_LAYERS, BIDIRECTIONAL, DROPOUT, PAD_IDX)
 pretrained_embeddings = TEXT.vocab.vectors
 model.embedding.weight.data.copy_(pretrained_embeddings)
 UNK_IDX = TEXT.vocab.stoi[TEXT.unk_token]
