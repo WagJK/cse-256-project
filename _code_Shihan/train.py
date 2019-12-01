@@ -19,6 +19,8 @@ parser.add_argument('--batchSize', type=int, default=64)
 parser.add_argument('--vocabSize', type=int, default=25000)
 parser.add_argument('--epoch', type=int, default=15)
 parser.add_argument('--embedding', type=str, default="glove.6B.300d")
+parser.add_argument('--reg', type=float, default=0.0)
+parser.add_argument('--dropout', type=float, default=0.5)
 
 
 args = parser.parse_args()
@@ -27,6 +29,9 @@ BATCH_SIZE = args.batchSize
 MAX_VOCAB_SIZE =args.vocabSize
 N_EPOCHS = args.epoch
 pretrainedEmb =args.embedding
+add_reg = args.reg
+add_dropout =args.dropout
+
 
 SEED = 777
 torch.manual_seed(SEED)
@@ -86,13 +91,13 @@ train_iterator, valid_iterator, test_iterator = data.BucketIterator.splits(
 
 INPUT_DIM = len(TEXT.vocab)
 PAD_IDX = TEXT.vocab.stoi[TEXT.pad_token]
-model = SWEM_hier(INPUT_DIM, EMBEDDING_DIM, PAD_IDX)
+model = SWEM_hier(INPUT_DIM, EMBEDDING_DIM, PAD_IDX, add_dropout)
 pretrained_embeddings = TEXT.vocab.vectors
 model.embedding.weight.data.copy_(pretrained_embeddings)
 UNK_IDX = TEXT.vocab.stoi[TEXT.unk_token]
 model.embedding.weight.data[UNK_IDX] = torch.zeros(EMBEDDING_DIM)
 model.embedding.weight.data[PAD_IDX] = torch.zeros(EMBEDDING_DIM)
-optimizer = optim.Adam(model.parameters())
+optimizer = optim.Adam(model.parameters(), weight_decay=add_reg)
 criterion = nn.BCEWithLogitsLoss()
 model = model.to(device)
 criterion = criterion.to(device)
