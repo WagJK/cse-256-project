@@ -2,19 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d5584ea6-7f21-4b90-a18f-9264d822939b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_code_Shihan/.data/imdb/test.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_code_Shihan/.data/imdb/train.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_code_Shihan/.data/imdb/valid.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_code_Shihan/.data/sst/test.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_code_Shihan/.data/sst/train.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_code_Shihan/.data/sst/valid.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_code_Shihan/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_code_Shihan/model.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_code_Shihan/model_imdb.pt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_code_Shihan/model_sst.pt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_code_Shihan/train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/code/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_code_Shihan/Results.md" beforeDir="false" afterPath="$PROJECT_DIR$/_code_Shihan/Results.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_code_Shihan/model_imdb.pt" beforeDir="false" afterPath="$PROJECT_DIR$/_code_Shihan/model_imdb.pt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_code_Shihan/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/_code_Shihan/train.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,8 +17,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/_code_Shihan/train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+            <state relative-caret-position="71">
+              <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -39,8 +29,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_code_Shihan/model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="9" column="45" lean-forward="true" selection-start-line="9" selection-start-column="45" selection-end-line="9" selection-end-column="45" />
+            <state relative-caret-position="1104">
+              <caret line="46" column="30" selection-start-line="46" selection-start-column="30" selection-end-line="46" selection-end-column="30" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -60,7 +50,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" fullScreen="true">
     <option name="x" value="-887" />
     <option name="y" value="-1440" />
     <option name="width" value="2560" />
@@ -83,12 +73,6 @@
               <item name="cse-256-project" type="b2602c69:ProjectViewProjectNode" />
               <item name="cse-256-project" type="462c0819:PsiDirectoryNode" />
               <item name="_code_Shihan" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="cse-256-project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="cse-256-project" type="462c0819:PsiDirectoryNode" />
-              <item name="_code_Shihan" type="462c0819:PsiDirectoryNode" />
-              <item name=".data" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="cse-256-project" type="b2602c69:ProjectViewProjectNode" />
@@ -135,24 +119,24 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1575149922392</updated>
-      <workItem from="1575149927193" duration="3577000" />
+      <workItem from="1575149927193" duration="10362000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3577000" />
+    <option name="totallyTimeSpent" value="10362000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-887" y="-1417" width="2560" height="1417" extended-state="6" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24980143" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.44992846" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" />
       <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="Python Console" />
-      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.50037736" />
+      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.686747" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -175,20 +159,37 @@
     <entry file="file://$PROJECT_DIR$/_code_Shihan/.data/sst/test.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/_code_Shihan/model.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="9" column="45" lean-forward="true" selection-start-line="9" selection-start-column="45" selection-end-line="9" selection-end-column="45" />
+        <state relative-caret-position="1104">
+          <caret line="46" column="30" selection-start-line="46" selection-start-column="30" selection-end-line="46" selection-end-column="30" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file:///Applications/anaconda3/envs/pytorch/lib/python3.7/site-packages/torchtext/data/field.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="312" selection-start-line="312" selection-end-line="312" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Applications/anaconda3/envs/pytorch/lib/python3.7/site-packages/torchtext/vocab.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="794">
+          <caret line="133" column="41" lean-forward="true" selection-start-line="133" selection-start-column="41" selection-end-line="133" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/_code_Shihan/train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        <state relative-caret-position="71">
+          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>

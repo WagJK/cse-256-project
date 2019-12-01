@@ -10,6 +10,23 @@ import random
 import torch.optim as optim
 import time
 import spacy
+import argparse
+
+
+parser = argparse.ArgumentParser(description='manual to this script')
+parser.add_argument('--embeddingSize', type=int, default=300)
+parser.add_argument('--batchSize', type=int, default=64)
+parser.add_argument('--vocabSize', type=int, default=25000)
+parser.add_argument('--epoch', type=int, default=15)
+parser.add_argument('--embedding', type=str, default="glove.6B.300d")
+
+
+args = parser.parse_args()
+EMBEDDING_DIM = args.embeddingSize
+BATCH_SIZE = args.batchSize
+MAX_VOCAB_SIZE =args.vocabSize
+N_EPOCHS = args.epoch
+pretrainedEmb =args.embedding
 
 SEED = 777
 torch.manual_seed(SEED)
@@ -53,13 +70,12 @@ else:
             json.dump(example, f)
             f.write('\n')
 
-MAX_VOCAB_SIZE = 25000
+
 TEXT.build_vocab(train_data, 
                  max_size = MAX_VOCAB_SIZE, 
-                 vectors = "glove.6B.300d", 
+                 vectors = pretrainedEmb,
                  unk_init = torch.Tensor.normal_)
 LABEL.build_vocab(train_data)
-BATCH_SIZE = 64
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 train_iterator, valid_iterator, test_iterator = data.BucketIterator.splits(
     (train_data, valid_data, test_data), 
@@ -69,7 +85,6 @@ train_iterator, valid_iterator, test_iterator = data.BucketIterator.splits(
     device = device)
 
 INPUT_DIM = len(TEXT.vocab)
-EMBEDDING_DIM = 300
 PAD_IDX = TEXT.vocab.stoi[TEXT.pad_token]
 model = SWEM_hier(INPUT_DIM, EMBEDDING_DIM, PAD_IDX)
 pretrained_embeddings = TEXT.vocab.vectors
@@ -129,7 +144,6 @@ def epoch_time(start_time, end_time):
     return elapsed_mins, elapsed_secs
 
 
-N_EPOCHS = 5
 best_valid_loss = float('inf')
 for epoch in range(N_EPOCHS):
     start_time = time.time()
