@@ -31,31 +31,29 @@
                 <h5> Selected Text </h5>
                 <textarea id="text" type="text" class="form-control" id="text" placeholder="You haven't selected your text" rows="5">
                 </textarea>
-                <button type="button" class="btn btn-success btn-block mt-2"> Analyze </button>
+                <button id="analyzeButton" type="button" class="btn btn-info btn-block mt-2"> 
+                    Analyze 
+                </button>
             </div>
-            <!-- <div class="container text-left">
-                <div class="card">
-                    <h5 class="card-header"> Selected Text </h5>
-                    <div class="card-body">
-                        <p class="card-text"> 
-                            <span id="text"> You haven't selected your text </span>
-                        </p>
-                        <button type="button" class="btn btn-success btn-lg"> Evaluate </button>
-                    </div>
-                </div>
-            </div> -->
 
             <div class="container text-left mt-3 mb-3 ml-3 mr-3">
-                <h4> Your text sounds: 
-                    <span id="sentiment" class="badge badge-danger">
-                        Absolute abomination
+                <h4> 
+                    Your text sounds: 
+                    <span id="label" class="badge">
+                        Empty
                     </span>
                 </h4>
-                <h6> Sentiment score: 
-                    <span id="sentiment-score">
-                        <b> -99999 </b>
-                    </span>
+            </div>
+            <div class="container mt-3 mb-3 ml-3 mr-3">
+                <h6 id="sublabel"> 
+                    Your text is empty. 
                 </h6>
+            </div>
+            <div class="container text-left mt-3 mb-3 ml-3 mr-3">
+                <h5> 
+                    Sentiment score: 
+                    <span id="score"> -1 </span>
+                </h5>
             </div>
             <hr>
             <div class="container text-left mt-1 mb-1 ml-3 mr-3">

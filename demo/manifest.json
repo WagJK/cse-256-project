@@ -10,7 +10,7 @@
 		"tabs"
 	],
 	"background": {
-		"scripts": ["background.js"],
+		"scripts": ["lib/jquery-3.4.1.min.js", "background.js"],
 		"persistent": false
 	},
 	"browser_action": {
@@ -28,6 +28,5 @@
 		"48": "images/get_started48.png",
 		"128": "images/get_started128.png"
 	},
-	"options_page": "options.html",
 	"manifest_version": 2
 }

@@ -6,19 +6,29 @@ var contextMenuItem = {
 }
 chrome.contextMenus.create(contextMenuItem)
 
+
 chrome.contextMenus.onClicked.addListener(function(clickData) {
 	if (clickData.menuItemId == "sentimentAnalysis" && clickData.selectionText) {
-		var text = clickData.selectionText
-		chrome.storage.sync.set({'text': text}, null);
-		
+		var text = clickData.selectionText		
 		// ajax request
-		var xhttp = new XMLHttpRequest();
-		xhttp.onreadystatechange = function() {
-			if (this.readyState == 4 && this.status == 200) {
-				document.getElementById("demo").innerHTML = this.responseText;
-			}
-		};
-		xhttp.open("GET", "ajax_info.txt", true);
-		xhttp.send();
+		console.log(text);
+		var form = new FormData();
+		form.append('text', text);
+		var settings = {
+			"async": true,
+			"crossDomain": true,
+			"url": "http://127.0.0.1:5000/",
+			"method": "POST",
+			"processData": false,
+			"contentType": false,
+			"mimeType": "multipart/form-data",
+			"data": form
+		}
+		$.ajax(settings).done(function (response) {
+			var parsed_response = JSON.parse(response)
+			console.log(parsed_response);
+			chrome.storage.sync.set({'text': text}, null);
+			chrome.storage.sync.set({'score': parsed_response.sentiment}, null);
+		});
 	}
 })
