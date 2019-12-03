@@ -1,4 +1,4 @@
-$(function() {
+function load() {
 	chrome.storage.sync.get(['text', 'score'], function(obj) {
 		$('#text').text(obj.text);
 		$('#score').text(obj.score);
@@ -25,11 +25,16 @@ $(function() {
 			sub_label = "You are having a blast!"
 		} 
 		$('#label').text(label)
+		$('#label').removeClass("badge-warning")
+		$('#label').removeClass("badge-danger")
+		$('#label').removeClass("badge-success")
 		$('#label').addClass(button_color)
 		$('#sublabel').text(sub_label)
 		console.log(obj);
 	})
-});
+}
+
+$(load());
 
 $('#analyzeButton').click(function analyze() {
 	var text = $('#text').val();
@@ -52,5 +57,48 @@ $('#analyzeButton').click(function analyze() {
 		console.log(parsed_response);
 		chrome.storage.sync.set({'text': text}, null);
 		chrome.storage.sync.set({'score': parsed_response.sentiment}, null);
+		load();
+	});
+});
+
+$('#feedbackYes').click(function() {
+	chrome.storage.sync.get(['text', 'score'], function(obj) {
+		console.log(text);
+		var form = new FormData();
+		form.append('text', obj.text);
+		form.append('sentiment', obj.score);
+		form.append('feedback', "Yes");
+		var settings = {
+			"async": true,
+			"crossDomain": true,
+			"url": "http://127.0.0.1:5000/feedback",
+			"method": "POST",
+			"processData": false,
+			"contentType": false,
+			"mimeType": "multipart/form-data",
+			"data": form
+		}
+		$.ajax(settings).done(function (response) { console.log(response) });
+	});
+});
+
+$('#feedbackNo').click(function() {
+	chrome.storage.sync.get(['text', 'score'], function(obj) {
+		console.log(text);
+		var form = new FormData();
+		form.append('text', obj.text);
+		form.append('sentiment', obj.score);
+		form.append('feedback', "No");
+		var settings = {
+			"async": true,
+			"crossDomain": true,
+			"url": "http://127.0.0.1:5000/feedback",
+			"method": "POST",
+			"processData": false,
+			"contentType": false,
+			"mimeType": "multipart/form-data",
+			"data": form
+		}
+		$.ajax(settings).done(function (response) { console.log(response) });
 	});
 });

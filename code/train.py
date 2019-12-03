@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 from torchtext import data
 from torchtext import datasets
-from model import SWEM_avg, SWEM_max, SWEM_hier, RNN, CNN
+from .model import SWEM_avg, SWEM_max, SWEM_hier
 import json
 import os
 from torchtext import datasets
@@ -10,28 +10,6 @@ import random
 import torch.optim as optim
 import time
 import spacy
-import argparse
-
-
-parser = argparse.ArgumentParser(description='manual to this script')
-parser.add_argument('--embeddingSize', type=int, default=300)
-parser.add_argument('--batchSize', type=int, default=256)
-parser.add_argument('--vocabSize', type=int, default=25000)
-parser.add_argument('--epoch', type=int, default=10)
-parser.add_argument('--embedding', type=str, default="glove.840B.300d")
-parser.add_argument('--reg', type=float, default=0.0)
-parser.add_argument('--dropout', type=float, default=0.0)
-
-
-args = parser.parse_args()
-EMBEDDING_DIM = args.embeddingSize
-BATCH_SIZE = args.batchSize
-MAX_VOCAB_SIZE =args.vocabSize
-N_EPOCHS = args.epoch
-pretrainedEmb =args.embedding
-add_reg = args.reg
-add_dropout =args.dropout
-
 
 SEED = 777
 torch.manual_seed(SEED)
@@ -75,12 +53,13 @@ else:
             json.dump(example, f)
             f.write('\n')
 
-
+MAX_VOCAB_SIZE = 25000
 TEXT.build_vocab(train_data, 
                  max_size = MAX_VOCAB_SIZE, 
-                 vectors = pretrainedEmb,
+                 vectors = "glove.6B.300d", 
                  unk_init = torch.Tensor.normal_)
 LABEL.build_vocab(train_data)
+BATCH_SIZE = 64
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 train_iterator, valid_iterator, test_iterator = data.BucketIterator.splits(
     (train_data, valid_data, test_data), 
@@ -90,24 +69,15 @@ train_iterator, valid_iterator, test_iterator = data.BucketIterator.splits(
     device = device)
 
 INPUT_DIM = len(TEXT.vocab)
-HIDDEN_DIM = 256
-OUTPUT_DIM = 1
-N_LAYERS = 2
-BIDIRECTIONAL = True
-DROPOUT = 0.5
+EMBEDDING_DIM = 300
 PAD_IDX = TEXT.vocab.stoi[TEXT.pad_token]
-model = SWEM_avg(INPUT_DIM, EMBEDDING_DIM, PAD_IDX, add_dropout)
-# model = RNN(INPUT_DIM, EMBEDDING_DIM, HIDDEN_DIM, OUTPUT_DIM, N_LAYERS, BIDIRECTIONAL, add_dropout, PAD_IDX)
-# model = CNN(INPUT_DIM, EMBEDDING_DIM, 300, PAD_IDX, DROPOUT)
-# print(sum(p.numel() for p in model.parameters() if p.requires_grad))
-
-
+model = SWEM_hier(INPUT_DIM, EMBEDDING_DIM, PAD_IDX)
 pretrained_embeddings = TEXT.vocab.vectors
 model.embedding.weight.data.copy_(pretrained_embeddings)
 UNK_IDX = TEXT.vocab.stoi[TEXT.unk_token]
 model.embedding.weight.data[UNK_IDX] = torch.zeros(EMBEDDING_DIM)
 model.embedding.weight.data[PAD_IDX] = torch.zeros(EMBEDDING_DIM)
-optimizer = optim.Adam(model.parameters(), weight_decay=add_reg, lr=0.003)
+optimizer = optim.Adam(model.parameters())
 criterion = nn.BCEWithLogitsLoss()
 model = model.to(device)
 criterion = criterion.to(device)
@@ -158,46 +128,35 @@ def epoch_time(start_time, end_time):
     elapsed_secs = int(elapsed_time - (elapsed_mins * 60))
     return elapsed_mins, elapsed_secs
 
-# ttl_time = time.time()
-# best_valid_loss = float('inf')
-# for epoch in range(N_EPOCHS):
-#     start_time = time.time()
-#     train_loss, train_acc = train(model, train_iterator, optimizer, criterion)
-#     valid_loss, valid_acc = evaluate(model, valid_iterator, criterion)
-#     end_time = time.time()
-#     epoch_mins, epoch_secs = epoch_time(start_time, end_time)
-#     if valid_loss < best_valid_loss:
-#         best_valid_loss = valid_loss
-#         torch.save(model.state_dict(), 'avg_model_'+datafile+'.pt')
-#     print(f'Epoch: {epoch+1:02} | Epoch Time: {epoch_mins}m {epoch_secs}s')
-#     print(f'\tTrain Loss: {train_loss:.3f} | Train Acc: {train_acc*100:.2f}%')
-#     print(f'\t Val. Loss: {valid_loss:.3f} |  Val. Acc: {valid_acc*100:.2f}%')
-# ttl_end = time.time()
-# print(ttl_end - ttl_time)
-#
-# model.load_state_dict(torch.load('model_'+datafile+'.pt'))
-# test_loss, test_acc = evaluate(model, test_iterator, criterion)
-# print(f'Test Loss: {test_loss:.3f} | Test Acc: {test_acc*100:.2f}%')
+
+N_EPOCHS = 5
+best_valid_loss = float('inf')
+for epoch in range(N_EPOCHS):
+    start_time = time.time()
+    train_loss, train_acc = train(model, train_iterator, optimizer, criterion)
+    valid_loss, valid_acc = evaluate(model, valid_iterator, criterion)
+    end_time = time.time()
+    epoch_mins, epoch_secs = epoch_time(start_time, end_time)
+    if valid_loss < best_valid_loss:
+        best_valid_loss = valid_loss
+        torch.save(model.state_dict(), 'model_'+datafile+'.pt')
+    print(f'Epoch: {epoch+1:02} | Epoch Time: {epoch_mins}m {epoch_secs}s')
+    print(f'\tTrain Loss: {train_loss:.3f} | Train Acc: {train_acc*100:.2f}%')
+    print(f'\t Val. Loss: {valid_loss:.3f} |  Val. Acc: {valid_acc*100:.2f}%')
+
+model.load_state_dict(torch.load('model_'+datafile+'.pt'))
+test_loss, test_acc = evaluate(model, test_iterator, criterion)
+print(f'Test Loss: {test_loss:.3f} | Test Acc: {test_acc*100:.2f}%')
 
 
-
-model1 = SWEM_avg(INPUT_DIM, EMBEDDING_DIM, PAD_IDX, add_dropout)
-model2 = SWEM_hier(INPUT_DIM, EMBEDDING_DIM, PAD_IDX, add_dropout)
-model1.load_state_dict(torch.load('avg_model_'+datafile+'.pt'))
-model2.load_state_dict(torch.load('model_'+datafile+'.pt'))
 nlp = spacy.load('en')
-def predict_sentiment(sentence):
+def predict_sentiment(model, sentence):
     model.eval()
     tokenized = [tok.text for tok in nlp.tokenizer(sentence)]
     indexed = [TEXT.vocab.stoi[t] for t in tokenized]
     length = [len(indexed)]
-    tensor = torch.LongTensor(indexed)
+    tensor = torch.LongTensor(indexed).to(device)
     tensor = tensor.unsqueeze(1)
     length_tensor = torch.LongTensor(length)
-    if length_tensor > 5:
-        prediction = torch.sigmoid(model2(tensor, length_tensor))
-    else:
-        prediction = torch.sigmoid(model1(tensor, length_tensor))
+    prediction = torch.sigmoid(model(tensor, length_tensor))
     return prediction.item()
-
-print(predict_sentiment('like it.'))
