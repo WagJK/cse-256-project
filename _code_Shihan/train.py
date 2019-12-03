@@ -96,11 +96,10 @@ N_LAYERS = 2
 BIDIRECTIONAL = True
 DROPOUT = 0.5
 PAD_IDX = TEXT.vocab.stoi[TEXT.pad_token]
-<<<<<<< HEAD
-model = SWEM_hier(INPUT_DIM, EMBEDDING_DIM, PAD_IDX, add_dropout)
-=======
+
+# model = SWEM_hier(INPUT_DIM, EMBEDDING_DIM, PAD_IDX, add_dropout)
 model = RNN(INPUT_DIM, EMBEDDING_DIM, HIDDEN_DIM, OUTPUT_DIM, N_LAYERS, BIDIRECTIONAL, DROPOUT, PAD_IDX)
->>>>>>> fab24154a776a309caa0e78b2d6d65bd3e84b013
+
 pretrained_embeddings = TEXT.vocab.vectors
 model.embedding.weight.data.copy_(pretrained_embeddings)
 UNK_IDX = TEXT.vocab.stoi[TEXT.unk_token]

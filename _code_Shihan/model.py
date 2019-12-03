@@ -49,11 +49,8 @@ class SWEM_hier(nn.Module):
         pooled = F.avg_pool1d(embedded, kernel_size=self.kernel_size)
         pooled = F.max_pool1d(pooled, pooled.shape[2])
         pooled.squeeze_()
-<<<<<<< HEAD
         out = self.fc(pooled)
         return self.dropout(out)
-=======
-        return self.fc(pooled)
 
 class RNN(nn.Module):
     def __init__(self, vocab_size, embedding_dim, hidden_dim, output_dim, n_layers, 
@@ -75,4 +72,3 @@ class RNN(nn.Module):
         output, output_lengths = nn.utils.rnn.pad_packed_sequence(packed_output)
         hidden = self.dropout(torch.cat((hidden[-2,:,:], hidden[-1,:,:]), dim = 1))
         return self.fc(hidden)
->>>>>>> fab24154a776a309caa0e78b2d6d65bd3e84b013
